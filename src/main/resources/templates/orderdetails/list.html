@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Order Details')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+<h2>Order Details</h2>
+
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/orderdetails/new'}">Nuevo Transportista</a>
+
+<form class="form-inline" method="post" th:action="@{'/orderdetails/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Producto" />
+    </div>
+    <button class="btn btn-primary mb-4" th:href="@{'/orderdetails/list'}">Refrescar</button>
+</form>
+
+<div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">orderid</th>
+        <th scope="col">productid</th>
+        <th scope="col">unitprice</th>
+        <th scope="col">quantity</th>
+        <th scope="col">discount</th>
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ordt, info : ${orderDetailList}">
+        <th th:text="${info.index + 1}" scope="row"></th>
+        <td th:text="${ordt.orderid}"></td>
+        <td th:text="${ordt.productid}"></td>
+        <td th:text="${ordt.unitprice}"></td>
+        <td th:text="${ordt.quantity}"></td>
+        <td th:text="${ordt.discount}"></td>
+
+        <!--
+        <td><a class="btn btn-primary" th:href="@{'/orderdetails/edit' + '?id=' + ${cate.categoryid}}">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/orderdetails/delete' + '?id=' + ${cate.categoryid}}">Borrar</a></td>
+        -->
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Regiones')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+<h2>Lista Regiones</h2>
+
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/region/new'}">Nuevo Transportista</a>
+
+<form class="form-inline" method="post" th:action="@{'/region/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Producto" />
+    </div>
+    <button class="btn btn-primary mb-4" th:href="@{'/region/list'}">Refrescar</button>
+</form>
+
+<div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">regionid</th>
+        <th scope="col">regiondescription</th>
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reg, info : ${regionList}">
+        <th th:text="${info.index + 1}" scope="row"></th>
+        <td th:text="${reg.regionid}"></td>
+        <td th:text="${reg.regiondescription}"></td>
+
+        <td><a class="btn btn-primary" th:href="@{'/region/edit' + '?id=' + ${reg.regionid}}">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/region/delete' + '?id=' + ${reg.regionid}}">Borrar</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

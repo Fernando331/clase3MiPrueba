@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Customer')">
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+
+    <h2>Lista Customers</h2>
+
+    <a class="btn btn-success mt-4 mb-4" th:href="@{'/customer/new'}">Nuevo Customer</a>
+
+    <!--
+    <form method="post" th:action="@{'/shipper/buscarTransportista'}">
+        <input type="hidden" name="companyname" class="form-control mb-3" placeholder="Buscar" />
+    </form>
+
+    <form class="form-inline" method="post" th:action="@{'/shipper/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="BuscarPorInicio" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/shipper/list'}">Refrescar</button>
+
+    </form>
+
+    -->
+    <form class="form-inline" method="post" th:action="@{'/customer/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Producto" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/customer/list'}">Refrescar</button>
+
+    </form>
+
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">customerid</th>
+            <th scope="col">companyname</th>
+            <th scope="col">contactname</th>
+
+            <th scope="col">contacttitle</th>
+            <th scope="col">address</th>
+            <th scope="col">city</th>
+            <th scope="col">region</th>
+            <th scope="col">postalcode</th>
+            <th scope="col">country</th>
+            <th scope="col">phone</th>
+            <th scope="col">fax</th>
+
+
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="custo, info : ${custoList}">
+            <th th:text="${info.index + 1}" scope="row"></th>
+            <td th:text="${custo.customerid}"></td>
+            <td th:text="${custo.companyname}"></td>
+            <td th:text="${custo.contactname}"></td>
+
+            <td th:text="${custo.contacttitle}"></td>
+            <td th:text="${custo.address}"></td>
+            <td th:text="${custo.city}"></td>
+            <td th:text="${custo.region}"></td>
+            <td th:text="${custo.postalcode}"></td>
+            <td th:text="${custo.country}"></td>
+            <td th:text="${custo.phone}"></td>
+            <td th:text="${custo.fax}"></td>
+
+            <td><a class="btn btn-primary" th:href="@{'/customer/edit' + '?id=' + ${custo.customerid}}">Editar</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/customer/delete' + '?id=' + ${custo.customerid}}">Borrar</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>

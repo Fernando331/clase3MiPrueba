@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Orden')">
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+
+    <h2>Lista Ordenes</h2>
+
+    <a class="btn btn-success mt-4 mb-4" th:href="@{'/orden/new'}">Nueva Categoria</a>
+
+    <!--
+    <form method="post" th:action="@{'/shipper/buscarTransportista'}">
+        <input type="hidden" name="companyname" class="form-control mb-3" placeholder="Buscar" />
+    </form>
+
+    <form class="form-inline" method="post" th:action="@{'/shipper/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="BuscarPorInicio" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/shipper/list'}">Refrescar</button>
+
+    </form>
+
+    -->
+    <form class="form-inline" method="post" th:action="@{'/orden/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Producto" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/orden/list'}">Refrescar</button>
+
+    </form>
+
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">customerid</th>
+            <th scope="col">orderid</th>
+            <th scope="col">empleado</th>
+            <th scope="col">orderdate</th>
+            <th scope="col">requireddate</th>
+            <th scope="col">shippeddate</th>
+            <th scope="col">shipper</th>
+            <th scope="col">freight</th>
+            <th scope="col">shipname</th>
+            <th scope="col">shipaddress</th>
+            <th scope="col">shipcity</th>
+            <th scope="col">shipregion</th>
+            <th scope="col">shippostalCode</th>
+            <th scope="col">shipcountry</th>
+
+
+
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orden, info : ${ordenList}">
+            <th th:text="${info.index + 1}" scope="row"></th>
+
+            <td th:text="${orden.customer.companyname}"></td>
+            <td th:text="${orden.orderid}"></td>
+            <td th:text="${orden.empleado.firstname + ' ' + orden.empleado.lastname}"></td>
+            <td th:text="${orden.orderdate}"></td>
+            <td th:text="${orden.requireddate}"></td>
+            <td th:text="${orden.shippeddate}"></td>
+            <td th:text="${orden.shipper.companyname}"></td>
+            <td th:text="${orden.freight}"></td>
+            <td th:text="${orden.shipname}"></td>
+            <td th:text="${orden.shipaddress}"></td>
+            <td th:text="${orden.shipcity}"></td>
+            <td th:text="${orden.shipregion}"></td>
+            <td th:text="${orden.shippostalcode}"></td>
+            <td th:text="${orden.shipcountry}"></td>
+
+
+
+            <td><a class="btn btn-primary" th:href="@{'/orden/edit' + '?id=' + ${orden.orderid}}">Editar</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/orden/delete' + '?id=' + ${orden.orderid}}">Borrar</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Formulario Editar Customer')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+<h2>Nueva Categoria</h2>
+<hr/>
+<form method="post" th:action="@{'/customer/save'}">
+
+    <input type="hidden" th:value="${customers.customerid}" name="customerid" class="form-control" id="customerid">
+
+    <div class="form-group">
+        <label for="companyname">companyname</label>
+        <input th:value="${customers.companyname}" name="companyname" type="text" class="form-control" id="companyname">
+    </div>
+
+    <a th:href="@{'/customer/list'}" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Roles')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+<h2>Lista Roles</h2>
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/rol/new'}">Nuevo Rol</a>
+<!--
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/territory/new'}">Nuevo Territorio</a>
+-->
+
+<form class="form-inline" method="post" th:action="@{'/rol/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Usuario" />
+    </div>
+    <button class="btn btn-primary mb-4" th:href="@{'/rol/list'}">Refrescar</button>
+</form>
+
+<div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">idrol</th>
+        <th scope="col">nombre</th>
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rol, info : ${rolList}">
+        <th th:text="${info.index + 1}" scope="row"></th>
+        <td th:text="${rol.idrol}"></td>
+        <td th:text="${rol.nombre}"></td>
+
+        <td><a class="btn btn-primary" th:href="@{'/rol/edit' + '?id=' + ${rol.idrol}}">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/rol/delete' + '?id=' + ${rol.idrol}}">Borrar</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

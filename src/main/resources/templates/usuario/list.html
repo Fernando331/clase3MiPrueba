@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Usuarios')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+<h2>Lista Usuarios</h2>
+
+<!--
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/territory/new'}">Nuevo Territorio</a>
+-->
+
+<form class="form-inline" method="post" th:action="@{'/usuario/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Usuario" />
+    </div>
+    <button class="btn btn-primary mb-4" th:href="@{'/usuario/list'}">Refrescar</button>
+</form>
+
+<div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">idusuario</th>
+        <th scope="col">nombre</th>
+        <th scope="col">apellido</th>
+        <th scope="col">dni</th>
+        <th scope="col">edad</th>
+        <th scope="col">email</th>
+        <th scope="col">activo</th>
+        <th scope="col">rol</th>
+
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usu, info : ${usuarioList}">
+        <th th:text="${info.index + 1}" scope="row"></th>
+        <td th:text="${usu.idusuario}"></td>
+        <td th:text="${usu.nombre}"></td>
+        <td th:text="${usu.apellido}"></td>
+        <td th:text="${usu.dni}"></td>
+        <td th:text="${usu.edad}"></td>
+        <td th:text="${usu.email}"></td>
+        <td th:text="${usu.activo}"></td>
+        <td th:text="${usu.rol.nombre}"></td>
+
+        <td><a class="btn btn-primary" th:href="@{'/usuario/edit' + '?id=' + ${usu.idusuario}}">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/usuario/delete' + '?id=' + ${usu.idusuario}}">Borrar</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

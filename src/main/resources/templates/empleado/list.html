@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Empleados')">
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+    <h2>Lista Categorias</h2>
+
+    <a class="btn btn-success mt-4 mb-4" th:href="@{'/category/new'}">Nuevo Transportista</a>
+
+    <!--
+    <form method="post" th:action="@{'/shipper/buscarTransportista'}">
+        <input type="hidden" name="companyname" class="form-control mb-3" placeholder="Buscar" />
+    </form>
+
+    <form class="form-inline" method="post" th:action="@{'/shipper/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="BuscarPorInicio" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/shipper/list'}">Refrescar</button>
+
+    </form>
+
+    -->
+    <form class="form-inline" method="post" th:action="@{'/empleado/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Producto" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/empleado/list'}">Refrescar</button>
+
+    </form>
+
+    <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+    <div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">employeeid</th>
+            <th scope="col">identificacion</th>
+            <th scope="col">title</th>
+            <th scope="col">titleofcourtesy</th>
+            <th scope="col">birthdate</th>
+            <th scope="col">hiredate</th>
+            <th scope="col">address</th>
+            <th scope="col">city</th>
+            <th scope="col">region</th>
+            <th scope="col">postalcode</th>
+            <th scope="col">country</th>
+            <th scope="col">homephone</th>
+            <th scope="col">extension</th>
+            <th scope="col">reportsto</th>
+            <th scope="col">photopath</th>
+            <th scope="col">salary</th>
+
+
+
+
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emple, info : ${empleadoList}">
+            <th th:text="${info.index + 1}" scope="row"></th>
+            <td th:text="${emple.employeeid}"></td>
+            <td th:text="${emple.firstname + emple.lastname}"></td>
+            <td th:text="${emple.title}"></td>
+            <td th:text="${emple.titleofcourtesy}"></td>
+            <td th:text="${emple.birthdate}"></td>
+            <td th:text="${emple.hiredate}"></td>
+            <td th:text="${emple.address}"></td>
+            <td th:text="${emple.city}"></td>
+            <td th:text="${emple.region}"></td>
+            <td th:text="${emple.postalcode}"></td>
+            <td th:text="${emple.country}"></td>
+            <td th:text="${emple.homephone}"></td>
+            <td th:text="${emple.extension}"></td>
+            <td th:text="${emple.reportsto}"></td>
+            <td th:text="${emple.photopath}"></td>
+            <td th:text="${emple.salary}"></td>
+
+            <td><a class="btn btn-primary" th:href="@{'/empleado/edit' + '?id=' + ${emple.employeeid}}">Editar</a></td>
+            <td><a class="btn btn-danger" th:href="@{'/empleado/delete' + '?id=' + ${emple.employeeid}}">Borrar</a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <div sec:authorize="hasAuthority('admin')">
+
+        <h2>Empleados Por Region</h2>
+        <hr/>
+
+        <table class="table table-sm">
+
+            <tr>
+                <th>#</th>
+                <th>PAIS</th>
+                <th>CANTIDAD DE EMPLEADOS</th>
+            </tr>
+            <tr th:each="exp, info : ${empxpaislist}">
+                <td th:text="${info.index + 1}"></td>
+                <td th:text="${exp.pais}"></td>
+                <td th:text="${exp.cantidadempleados}"></td>
+            </tr>
+        </table>
+
+    </div>
+    <hr/>
+
+    <div sec:authorize="hasAuthority('logistica')">
+        <h2>Empleados Por Pais</h2>
+        <hr/>
+        <table class="table table-sm">
+
+            <tr>
+                <th>#</th>
+                <th>PAIS</th>
+                <th>CANTIDAD DE EMPLEADOS</th>
+            </tr>
+            <tr th:each="exp, info : ${empxpaislist}">
+                <td th:text="${info.index + 1}"></td>
+                <td th:text="${exp.pais}"></td>
+                <td th:text="${exp.cantidadempleados}"></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Formulario Editar Producto')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+<h2>Editar Producto</h2>
+<hr/>
+<form method="post" th:action="@{'/product/save'}">
+
+    <!--
+    <div type="hidden" class="form-group">
+        <label for="productid">productid</label>
+        <input th:value="${products.productid}" name="productid" type="text" class="form-control" id="productid">
+    </div>
+    -->
+
+    <input type="hidden" th:value="${products.productid}" name="productid" class="form-control" id="productid">
+
+    <div class="form-group">
+        <label for="productname">productname</label>
+        <input th:value="${products.productname}" name="productname" type="text" class="form-control" id="productname">
+    </div>
+    <div class="form-group">
+        <label for="supplier">supplierid</label>
+        <select class="form-control" name="supplier" id="supplier">
+            <option th:each="suppli : ${listasuppli}" th:value="${suppli.supplierid}" th:text="${suppli.companyname}" th:selected="${suppli.supplierid == products.supplier.supplierid}"></option>
+        </select>
+        <!--
+        <input th:value="${products.supplierid}" name="supplierid" type="text" class="form-control" id="supplierid">
+        -->
+    </div>
+
+    <div class="form-group">
+        <label for="category">categoryid</label>
+        <select class="form-control" name="category" id="category">
+            <option th:each="categoria : ${listacatego}" th:value="${categoria.categoryid}" th:text="${categoria.categoryname}" th:selected="${categoria.categoryid == products.category.categoryid}"></option>
+        </select>
+        <!--
+        <input th:value="${products.categoryid}" name="categoryid" type="text" class="form-control" id="categoryid">
+        -->
+    </div>
+
+    <div class="form-group">
+        <label for="quantityperunit">quantityperunit</label>
+        <input th:value="${products.quantityperunit}" name="quantityperunit" type="text" class="form-control" id="quantityperunit">
+    </div>
+
+    <div class="form-group">
+        <label for="unitprice">unitprice</label>
+        <input th:value="${products.unitprice}" name="unitprice" type="text" class="form-control" id="unitprice">
+    </div>
+
+    <div class="form-group">
+        <label for="unitsinstock">unitsinstock</label>
+        <input th:value="${products.unitsinstock}" name="unitsinstock" type="text" class="form-control" id="unitsinstock">
+    </div>
+
+    <div class="form-group">
+        <label for="unitsonorder">unitsonorder</label>
+        <input th:value="${products.unitsonorder}" name="unitsonorder" type="text" class="form-control" id="unitsonorder">
+    </div>
+
+    <div class="form-group">
+        <label for="reorderlevel">reorderlevel</label>
+        <input th:value="${products.reorderlevel}" name="reorderlevel" type="text" class="form-control" id="reorderlevel">
+    </div>
+
+    <div class="form-group">
+        <label for="discontinued">discontinued</label>
+        <input th:value="${products.discontinued}" name="discontinued" type="text" class="form-control" id="discontinued">
+    </div>
+
+    <a th:href="@{'/product/list'}" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+</body>
+</html>

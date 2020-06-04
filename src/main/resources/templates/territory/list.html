@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Territorios')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+<h2>Lista Territorios</h2>
+
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/territory/new'}">Nuevo Territorio</a>
+
+<form class="form-inline" method="post" th:action="@{'/territory/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Territorio" />
+    </div>
+    <button class="btn btn-primary mb-4" th:href="@{'/territory/list'}">Refrescar</button>
+</form>
+
+<div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">territoryid</th>
+        <th scope="col">territorydescription</th>
+        <th scope="col">region</th>
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ter, info : ${territList}">
+        <th th:text="${info.index + 1}" scope="row"></th>
+        <td th:text="${ter.territoryid}"></td>
+        <td th:text="${ter.territorydescription}"></td>
+        <td th:text="${ter.region.regiondescription}"></td>
+
+        <td><a class="btn btn-primary" th:href="@{'/territory/edit' + '?id=' + ${ter.territoryid}}">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/territory/delete' + '?id=' + ${ter.territoryid}}">Borrar</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

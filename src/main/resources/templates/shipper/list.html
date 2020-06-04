@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista Transportistas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Transportistas')">
 </head>
 <body class="container">
+
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
 <h2>Lista Transportistas</h2>
+
 <a class="btn btn-primary mt-4 mb-4" th:href="@{'/shipper/new'}">Nuevo Transportista</a>
+
+
+<form method="post" th:action="@{'/shipper/buscarTransportista'}">
+    <input type="hidden" name="companyname" class="form-control mb-3" placeholder="Buscar" />
+</form>
+
+<form class="form-inline" method="post" th:action="@{'/shipper/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="BuscarPorInicio" />
+    </div>
+
+    <button class="btn btn-primary mb-4" th:href="@{'/shipper/list'}">Refrescar</button>
+
+</form>
+
 
 <div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
 
 <table class="table table-sm">
     <tr>
         <th>#</th>
+        <th>ID</th>
         <th>Nombre de la compañia</th>
         <th>Teléfono</th>
         <th></th>
@@ -24,6 +38,7 @@
     </tr>
     <tr th:each="shipper, info : ${shipperList}">
         <td th:text="${info.index + 1}"></td>
+        <td th:text="${shipper.shipperId}"></td>
         <td th:text="${shipper.companyname}"></td>
         <td th:text="${shipper.phone}"></td>
         <td><a class="btn btn-primary" th:href="@{'/shipper/edit' + '?id=' + ${shipper.shipperId}}">Editar</a></td>

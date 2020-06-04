@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Formulario Region')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+<h2 th:text="${territories.territoryid==null?'Nuevo Territorio':'Editar Territorio'}">Nuevo Producto</h2>
+<hr/>
+<form method="post" th:action="@{'/territory/save'}" th:object="${territories}">
+    <!--
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <div class="form-group">
+        <label for="productname">territorydescription</label>
+        <input type="text" class="form-control" th:field="*{territoryid}">
+
+        <div class="text-danger" th:if="${#fields.hasErrors('territoryid')}" th:errors="*{territoryid}"></div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="productname">territorydescription</label>
+        <input type="text" class="form-control" th:field="*{territorydescription}">
+
+        <div class="text-danger" th:if="${#fields.hasErrors('territorydescription')}" th:errors="*{territorydescription}"></div>
+
+    </div>
+
+    <!--
+    ////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
+    -->
+
+    <div class="form-group">
+        <label for="category">region</label>
+        <select class="form-control" th:field="*{region}">
+            <option th:each="reg : ${listareg}" th:value="${reg.regionid}" th:text="${reg.regiondescription}"></option>
+        </select>
+        <!--<input name="supplierid" type="text" class="form-control" id="supplierid">-->
+    </div>
+
+    <a th:href="@{'/territory/list'}" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary" th:text="${territories.territoryid==null?'Registrar':'Actualizar'}">Registrar</button>
+</form>
+</body>
+</html>

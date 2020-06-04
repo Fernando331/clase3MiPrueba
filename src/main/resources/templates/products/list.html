@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Lista Productos')">
+</head>
+<body class="container">
+<div th:replace="fragments/fragmento.html :: barraSuperior"></div>
+
+<div th:replace="fragments/fragmento.html :: barraPrueba"></div>
+
+<h2>Lista Productos</h2>
+
+<a class="btn btn-success mt-4 mb-4" th:href="@{'/product/new'}">Nueva Categoria</a>
+
+<!--
+<form method="post" th:action="@{'/shipper/buscarTransportista'}">
+    <input type="hidden" name="companyname" class="form-control mb-3" placeholder="Buscar" />
+</form>
+
+<form class="form-inline" method="post" th:action="@{'/shipper/buscarPorInicio'}">
+    <div class="form-group">
+        <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="BuscarPorInicio" />
+    </div>
+
+    <button class="btn btn-primary mb-4" th:href="@{'/shipper/list'}">Refrescar</button>
+
+</form>
+
+-->
+    <form class="form-inline" method="post" th:action="@{'/product/buscarPorInicio'}">
+        <div class="form-group">
+            <input name="inicio" type="text" class="form-control mb-4 mr-2" placeholder="Nombre del Producto" />
+        </div>
+
+        <button class="btn btn-primary mb-4" th:href="@{'/product/list'}">Refrescar</button>
+
+    </form>
+
+<div th:if="${msg != null}" th:text="${msg}" class="alert alert-success" role="alert"></div>
+<div th:if="${msgError != null}" th:text="${msgError}" class="alert alert-danger" role="alert"></div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">ProductID</th>
+        <th scope="col">ProductName</th>
+        <th scope="col">Supplier</th>
+        <th scope="col">CategoryID</th>
+        <th scope="col">QuantityPerUnit</th>
+        <th scope="col">UnitPrice</th>
+        <th scope="col">UnitsInStock</th>
+        <th scope="col">UnitsOnOrder</th>
+        <th scope="col">ReorderLevel</th>
+        <th scope="col">Discontinued</th>
+
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pro, info : ${productList}">
+        <th th:text="${info.index + 1}" scope="row"></th>
+        <td th:text="${pro.productid}"></td>
+        <td th:text="${pro.productname}"></td>
+        <td th:text="${pro.supplier.companyname}"></td>
+        <td th:text="${pro.category.categoryname}"></td>
+        <td th:text="${pro.quantityperunit}"></td>
+        <td th:text="${pro.unitprice}"></td>
+        <td th:text="${pro.unitsinstock}"></td>
+        <td th:text="${pro.unitsonorder}"></td>
+        <td th:text="${pro.reorderlevel}"></td>
+        <td th:text="${pro.discontinued}"></td>
+
+
+
+        <td><a class="btn btn-primary" th:href="@{'/product/edit' + '?id=' + ${pro.productid}}">Editar</a></td>
+        <td><a class="btn btn-danger" th:href="@{'/product/delete' + '?id=' + ${pro.productid}}">Borrar</a></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+
+</body>
+</html>

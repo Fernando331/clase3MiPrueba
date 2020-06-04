@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/fragmento.html :: cabecera(titulo='Ingreso al sistema')">
+</head>
+<body class="text-center">
+<div class="container theme-showcase">
+    <form class="form-signin" th:action="@{/processLogin}" method="post">
+        <h3 class="form-signin-heading">Acceso</h3>
+        <label for="username" class="sr-only">Correo</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required
+               autofocus>
+        <label for="password" class="sr-only">Contraseña</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+               required>
+        <h4 th:if="${param.error}" class="form-signin-heading" style="color:red">Acceso denegado</h4>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Ingresar"></input>
+    </form>
+</div>
+</body>
+</html>
